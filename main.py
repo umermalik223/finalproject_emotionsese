@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
-"""
-EmotionSense-AI Main Entry Point
-Production-ready therapeutic AI system with multimodal emotion analysis
-"""
-
 import asyncio
 import logging
 import sys
