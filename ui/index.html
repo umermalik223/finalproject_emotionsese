@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EmotionSense AI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <h1>🌙 EmotionSense AI</h1>
+    <nav>
+      <a href="index.html" style="background: rgba(255,255,255,0.2);">Multimodal</a>
+      <a href="sessions.html">Sessions</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <!-- Main -->
+  <main class="main">
+    <button id="sessionBtn" class="session-btn">Start Session</button>
+
+    <div class="options">
+      <label><input type="checkbox" id="excludeFacial"> Exclude Facial Model</label>
+      <label><input type="checkbox" id="excludeSpeech"> Exclude Speech Model</label>
+      <label><input type="checkbox" id="excludeText"> Exclude Text Model</label>
+    </div>
+
+    <!-- Status Indicators -->
+    <div id="statusIndicators" class="status-indicators">
+      <div class="status-item" id="cameraStatus">
+        <span class="status-dot offline"></span>
+        Camera: Offline
+      </div>
+      <div class="status-item" id="micStatus">
+        <span class="status-dot offline"></span>
+        Microphone: Offline
+      </div>
+      <div class="status-item" id="apiStatus">
+        <span class="status-dot offline"></span>
+        API: Checking...
+      </div>
+    </div>
+
+    <!-- Video Preview -->
+    <div id="videoContainer" class="video-container" style="display: none;">
+      <video id="videoPreview" autoplay muted playsinline></video>
+      <canvas id="captureCanvas" style="display: none;"></canvas>
+    </div>
+
+    <!-- Chat Display with integrated input -->
+    <div class="chat-display" id="chatDisplay">
+      <div class="chat-header">
+        <h3>Speech-to-Text & Conversation</h3>
+      </div>
+      
+      <div class="chat-messages" id="chatMessages">
+        <p class="speech-text">Speech-to-text will appear here when you start a session...</p>
+      </div>
+      
+      <!-- Chat Input -->
+      <div class="chat-input">
+        <input type="text" id="chatInput" placeholder="Type your message here..." />
+        <button id="sendBtn">Send</button>
+      </div>
+    </div>
+
+    <!-- Emotion Cards -->
+    <div class="card-container" id="emotionCards">
+      <div class="card blue" id="facialEmotionCard">
+        <h3>Facial Emotion</h3>
+        <div class="emotion-display">
+          <div class="emotion-main" id="facialEmotion">😐 Waiting...</div>
+          <div class="confidence" id="facialConfidence">0%</div>
+        </div>
+      </div>
+      
+      <div class="card orange" id="speechEmotionCard">
+        <h3>Speech Emotion</h3>
+        <div class="emotion-display">
+          <div class="emotion-main" id="speechEmotion">🔇 Waiting...</div>
+          <div class="confidence" id="speechConfidence">0%</div>
+        </div>
+      </div>
+      
+      <div class="card red" id="textEmotionCard">
+        <h3>Text Sentiment</h3>
+        <div class="emotion-display">
+          <div class="emotion-main" id="textEmotion">📝 Waiting...</div>
+          <div class="confidence" id="textConfidence">0%</div>
+        </div>
+      </div>
+      
+      <div class="card purple" id="mentalStateCard">
+        <h3>Mental State</h3>
+        <div class="emotion-display">
+          <div class="emotion-main" id="mentalState">🧠 Analyzing...</div>
+          <div class="confidence" id="mentalConfidence">0%</div>
+        </div>
+      </div>
+      
+      <div class="card teal" id="fusedEmotionCard">
+        <h3>Fused Emotion</h3>
+        <div class="emotion-display">
+          <div class="emotion-main" id="fusedEmotion">🔀 Overall: Analyzing...</div>
+          <div class="confidence" id="fusedConfidence">0%</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

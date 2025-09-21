@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - EmotionSense AI</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .about-container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+    
+    .about-hero {
+      text-align: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 4rem 2rem;
+      border-radius: 20px;
+      margin-bottom: 3rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .about-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .about-hero p {
+      font-size: 1.3rem;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    
+    .feature-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 3px solid transparent;
+      background-clip: padding-box;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+    
+    .feature-card.multimodal { border-color: #4facfe; }
+    .feature-card.therapeutic { border-color: #43e97b; }
+    .feature-card.realtime { border-color: #fa709a; }
+    .feature-card.privacy { border-color: #fee140; }
+    
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    
+    .feature-card h3 {
+      color: #333;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+    
+    .feature-card p {
+      color: #666;
+      line-height: 1.6;
+    }
+    
+    .tech-specs {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      padding: 3rem 2rem;
+      border-radius: 20px;
+      margin: 3rem 0;
+    }
+    
+    .tech-specs h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2.5rem;
+    }
+    
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .spec-item {
+      background: rgba(255,255,255,0.1);
+      padding: 1.5rem;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .spec-item h4 {
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+    
+    .spec-item p {
+      margin: 0;
+      opacity: 0.9;
+    }
+    
+    .team-section {
+      text-align: center;
+      margin: 4rem 0;
+    }
+    
+    .team-section h2 {
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 2rem;
+    }
+    
+    .team-info {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 3rem 2rem;
+      border-radius: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .contact-section {
+      background: #f8f9fa;
+      padding: 3rem 2rem;
+      border-radius: 20px;
+      margin: 3rem 0;
+      text-align: center;
+    }
+    
+    .contact-section h2 {
+      color: #333;
+      margin-bottom: 1rem;
+    }
+    
+    .contact-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .contact-item {
+      padding: 1.5rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    
+    .back-btn {
+      display: inline-block;
+      background: linear-gradient(90deg, #4facfe, #00f2fe);
+      color: white;
+      padding: 1rem 2rem;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: transform 0.3s ease;
+      margin: 2rem 0;
+    }
+    
+    .back-btn:hover {
+      transform: translateY(-2px);
+    }
+    
+    @media (max-width: 768px) {
+      .about-hero h1 { font-size: 2rem; }
+      .about-hero p { font-size: 1.1rem; }
+      .about-container { padding: 0 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <h1>🌙 EmotionSense AI</h1>
+    <nav>
+      <a href="index.html">Multimodal</a>
+      <a href="sessions.html">Sessions</a>
+      <a href="about.html" style="background: rgba(255,255,255,0.2);">About</a>
+    </nav>
+  </header>
+
+  <div class="about-container">
+    <!-- Hero Section -->
+    <section class="about-hero">
+      <h1>🌙 About EmotionSense AI</h1>
+      <p>Advanced multimodal emotion recognition system with therapeutic AI assistance, designed to provide comprehensive mental health support through cutting-edge technology.</p>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="features-grid">
+      <div class="feature-card multimodal">
+        <span class="feature-icon">🧠</span>
+        <h3>Multimodal Analysis</h3>
+        <p>Combines facial expression recognition, speech emotion analysis, text sentiment analysis, and mental state assessment for comprehensive emotional understanding.</p>
+      </div>
+
+      <div class="feature-card therapeutic">
+        <span class="feature-icon">💙</span>
+        <h3>AI Therapeutic Response</h3>
+        <p>Powered by GPT-4o-mini, providing personalized therapeutic guidance, calming techniques, and emotional validation based on your current emotional state.</p>
+      </div>
+
+      <div class="feature-card realtime">
+        <span class="feature-icon">⚡</span>
+        <h3>Real-time Processing</h3>
+        <p>Fast processing with optimized Whisper speech-to-text, delivering comprehensive analysis in approximately 14-17 seconds for complete multimodal assessment.</p>
+      </div>
+
+      <div class="feature-card privacy">
+        <span class="feature-icon">🔒</span>
+        <h3>Privacy & Safety</h3>
+        <p>Built-in safety monitoring with crisis detection, local processing options, and secure session management to protect your privacy and wellbeing.</p>
+      </div>
+    </section>
+
+    <!-- Technical Specifications -->
+    <section class="tech-specs">
+      <h2>🔧 Technical Specifications</h2>
+      <div class="specs-grid">
+        <div class="spec-item">
+          <h4>🎤 Speech Processing</h4>
+          <p>OpenAI Whisper (Local) - Optimized for speed and accuracy</p>
+        </div>
+        <div class="spec-item">
+          <h4>😊 Emotion Recognition</h4>
+          <p>Deep learning models for facial, speech, and text emotion analysis</p>
+        </div>
+        <div class="spec-item">
+          <h4>🧠 Mental State Analysis</h4>
+          <p>Clinical-grade mental health assessment using transformer models</p>
+        </div>
+        <div class="spec-item">
+          <h4>💬 Therapeutic AI</h4>
+          <p>GPT-4o-mini integration for personalized therapeutic responses</p>
+        </div>
+        <div class="spec-item">
+          <h4>🔄 Emotion Fusion</h4>
+          <p>Advanced algorithms combining multiple modalities for accurate assessment</p>
+        </div>
+        <div class="spec-item">
+          <h4>⚡ Performance</h4>
+          <p>~14-17 second processing time for complete multimodal analysis</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+      <h2>👥 Development Team</h2>
+      <div class="team-info">
+        <h3>🎓 Final Year Project</h3>
+        <p>EmotionSense AI is developed as an advanced final year project, combining cutting-edge artificial intelligence, machine learning, and human-computer interaction technologies to create a comprehensive emotional wellness platform.</p>
+        <br>
+        <p>This system represents the culmination of research in multimodal emotion recognition, therapeutic AI, and user-centered design principles.</p>
+      </div>
+    </section>
+
+    <!-- Research & Development -->
+    <section class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">📊</span>
+        <h3>Research Foundation</h3>
+        <p>Built on latest research in affective computing, natural language processing, and therapeutic AI to provide evidence-based emotional support.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🎯</span>
+        <h3>User-Centered Design</h3>
+        <p>Designed with user experience and accessibility in mind, providing intuitive interfaces for both technical and non-technical users.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🚀</span>
+        <h3>Future Development</h3>
+        <p>Continuous improvement through user feedback, model updates, and integration of new therapeutic approaches and technologies.</p>
+      </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="contact-section">
+      <h2>📞 Contact & Support</h2>
+      <p>For technical support, feedback, or collaboration inquiries:</p>
+      <div class="contact-info">
+        <div class="contact-item">
+          <h4>🎓 Academic Inquiry</h4>
+          <p>For research collaboration and academic discussions</p>
+        </div>
+        <div class="contact-item">
+          <h4>🐛 Technical Support</h4>
+          <p>Report bugs and technical issues</p>
+        </div>
+        <div class="contact-item">
+          <h4>💡 Feature Requests</h4>
+          <p>Suggest new features and improvements</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Back to Main -->
+    <div style="text-align: center;">
+      <a href="index.html" class="back-btn">← Back to EmotionSense AI</a>
+    </div>
+  </div>
+
+  <script>
+    // Add smooth scroll animation for better UX
+    document.addEventListener('DOMContentLoaded', () => {
+      // Animate cards on scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+
+      // Apply animation to feature cards
+      document.querySelectorAll('.feature-card, .spec-item').forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(card);
+      });
+    });
+  </script>
+</body>
+</html>

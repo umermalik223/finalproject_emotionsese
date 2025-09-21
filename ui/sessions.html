@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sessions - EmotionSense AI</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    .sessions-container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+    
+    .sessions-hero {
+      text-align: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 4rem 2rem;
+      border-radius: 20px;
+      margin-bottom: 3rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .sessions-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .sessions-hero p {
+      font-size: 1.3rem;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    
+    .session-controls {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+    
+    .session-controls h3 {
+      color: #333;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+    
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .control-btn {
+      background: linear-gradient(90deg, #4facfe, #00f2fe);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      font-size: 1rem;
+    }
+    
+    .control-btn:hover {
+      transform: translateY(-2px);
+    }
+    
+    .control-btn.danger {
+      background: linear-gradient(90deg, #ff6b6b, #ff5722);
+    }
+    
+    .control-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .sessions-list {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    
+    .sessions-header {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      padding: 1.5rem 2rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+    
+    .session-item {
+      border-bottom: 1px solid #eee;
+      padding: 1.5rem 2rem;
+      transition: background 0.3s ease;
+    }
+    
+    .session-item:hover {
+      background: #f8f9fa;
+    }
+    
+    .session-item:last-child {
+      border-bottom: none;
+    }
+    
+    .session-header {
+      display: flex;
+      justify-content: between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .session-id {
+      font-weight: 600;
+      color: #333;
+      font-size: 1.1rem;
+    }
+    
+    .session-date {
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    .session-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    
+    .detail-item {
+      background: #f8f9fa;
+      padding: 0.8rem;
+      border-radius: 8px;
+    }
+    
+    .detail-label {
+      font-weight: 600;
+      color: #555;
+      font-size: 0.85rem;
+      margin-bottom: 0.3rem;
+    }
+    
+    .detail-value {
+      color: #333;
+      font-size: 0.95rem;
+    }
+    
+    .emotion-indicator {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+    
+    .emotion-happy { background: #d4edda; color: #155724; }
+    .emotion-sad { background: #f8d7da; color: #721c24; }
+    .emotion-angry { background: #f5c6cb; color: #721c24; }
+    .emotion-neutral { background: #e2e3e5; color: #383d41; }
+    .emotion-anxious { background: #fff3cd; color: #856404; }
+    .emotion-fearful { background: #d1ecf1; color: #0c5460; }
+    
+    .session-actions {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .action-btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: transform 0.2s ease;
+    }
+    
+    .action-btn:hover {
+      transform: translateY(-1px);
+    }
+    
+    .btn-download {
+      background: #28a745;
+      color: white;
+    }
+    
+    .btn-view {
+      background: #007bff;
+      color: white;
+    }
+    
+    .btn-delete {
+      background: #dc3545;
+      color: white;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: #666;
+    }
+    
+    .empty-state-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+    
+    .back-btn {
+      display: inline-block;
+      background: linear-gradient(90deg, #4facfe, #00f2fe);
+      color: white;
+      padding: 1rem 2rem;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: transform 0.3s ease;
+      margin: 2rem 0;
+    }
+    
+    .back-btn:hover {
+      transform: translateY(-2px);
+    }
+    
+    @media (max-width: 768px) {
+      .sessions-hero h1 { font-size: 2rem; }
+      .sessions-hero p { font-size: 1.1rem; }
+      .sessions-container { padding: 0 1rem; }
+      .controls-grid { grid-template-columns: 1fr; }
+      .session-details { grid-template-columns: 1fr; }
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+    
+    .modal-content {
+      background: white;
+      margin: 5% auto;
+      padding: 2rem;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80%;
+      overflow-y: auto;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #eee;
+    }
+    
+    .modal-title {
+      font-size: 1.5rem;
+      color: #333;
+    }
+    
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #999;
+    }
+    
+    .close-btn:hover {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <h1>🌙 EmotionSense AI</h1>
+    <nav>
+      <a href="index.html">Multimodal</a>
+      <a href="sessions.html" style="background: rgba(255,255,255,0.2);">Sessions</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <div class="sessions-container">
+    <!-- Hero Section -->
+    <section class="sessions-hero">
+      <h1>📊 Session History</h1>
+      <p>View, download, and manage your EmotionSense AI sessions. Keep track of your emotional wellness journey with detailed reports and insights.</p>
+    </section>
+
+    <!-- Session Controls -->
+    <section class="session-controls">
+      <h3>📁 Session Management</h3>
+      <div class="controls-grid">
+        <button class="control-btn" onclick="loadSessions()">🔄 Refresh Sessions</button>
+        <button class="control-btn" onclick="exportAllSessions()">📥 Export All Sessions</button>
+        <button class="control-btn danger" onclick="clearAllSessions()">🗑️ Clear All Sessions</button>
+      </div>
+    </section>
+
+    <!-- Sessions List -->
+    <section class="sessions-list">
+      <div class="sessions-header">
+        📋 Your EmotionSense Sessions
+      </div>
+      <div id="sessionsList">
+        <div class="empty-state">
+          <div class="empty-state-icon">📝</div>
+          <h3>No Sessions Yet</h3>
+          <p>Start your first session on the main page to see your emotional wellness history here.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Back to Main -->
+    <div style="text-align: center;">
+      <a href="index.html" class="back-btn">← Back to EmotionSense AI</a>
+    </div>
+  </div>
+
+  <!-- Session Detail Modal -->
+  <div id="sessionModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Session Details</h2>
+        <button class="close-btn" onclick="closeSessionModal()">&times;</button>
+      </div>
+      <div id="modalContent">
+        <!-- Session details will be loaded here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let sessions = [];
+    const { jsPDF } = window.jspdf;
+
+    // Load sessions from localStorage
+    function loadSessions() {
+      const storedSessions = localStorage.getItem('emotionSenseSessions');
+      sessions = storedSessions ? JSON.parse(storedSessions) : [];
+      displaySessions();
+    }
+
+    // Save sessions to localStorage
+    function saveSessions() {
+      localStorage.setItem('emotionSenseSessions', JSON.stringify(sessions));
+    }
+
+
+    // Display sessions in the UI
+    function displaySessions() {
+      const sessionsList = document.getElementById('sessionsList');
+      
+      if (sessions.length === 0) {
+        sessionsList.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">📝</div>
+            <h3>No Sessions Yet</h3>
+            <p>Start your first session on the main page to see your emotional wellness history here.</p>
+          </div>
+        `;
+        return;
+      }
+
+      sessionsList.innerHTML = sessions.map(session => `
+        <div class="session-item">
+          <div class="session-header">
+            <div class="session-id">🌙 ${session.id}</div>
+            <div class="session-date">${formatDate(session.timestamp)}</div>
+          </div>
+          
+          <div class="session-details">
+            <div class="detail-item">
+              <div class="detail-label">Primary Emotion</div>
+              <div class="detail-value">
+                <span class="emotion-indicator emotion-${session.fused_emotion?.emotion || 'neutral'}">
+                  ${session.fused_emotion?.emotion || 'Unknown'} (${((session.fused_emotion?.confidence || 0) * 100).toFixed(1)}%)
+                </span>
+              </div>
+            </div>
+            
+            <div class="detail-item">
+              <div class="detail-label">Mental State</div>
+              <div class="detail-value">${session.mental_state?.emotion || 'Unknown'}</div>
+            </div>
+            
+            <div class="detail-item">
+              <div class="detail-label">Processing Time</div>
+              <div class="detail-value">${session.processing_time?.toFixed(1) || 'Unknown'}s</div>
+            </div>
+            
+            <div class="detail-item">
+              <div class="detail-label">Safety Status</div>
+              <div class="detail-value">${session.safety_status?.safe ? '✅ Safe' : '⚠️ Concern'}</div>
+            </div>
+          </div>
+          
+          ${session.speech_text ? `
+          <div class="detail-item" style="margin-top: 1rem;">
+            <div class="detail-label">Spoken Text</div>
+            <div class="detail-value">"${session.speech_text}"</div>
+          </div>
+          ` : ''}
+          
+          <div class="session-actions">
+            <button class="action-btn btn-view" onclick="viewSessionDetails('${session.id}')">👁️ View Details</button>
+            <button class="action-btn btn-download" onclick="downloadSessionPDF('${session.id}')">📄 Download PDF</button>
+            <button class="action-btn btn-delete" onclick="deleteSession('${session.id}')">🗑️ Delete</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Format date for display
+    function formatDate(timestamp) {
+      const date = new Date(timestamp);
+      return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+    }
+
+    // View session details in modal
+    function viewSessionDetails(sessionId) {
+      const session = sessions.find(s => s.id === sessionId);
+      if (!session) return;
+
+      const modalContent = document.getElementById('modalContent');
+      modalContent.innerHTML = `
+        <div style="line-height: 1.6;">
+          <h3>📊 Session Overview</h3>
+          <p><strong>Session ID:</strong> ${session.id}</p>
+          <p><strong>Date & Time:</strong> ${formatDate(session.timestamp)}</p>
+          <p><strong>Processing Time:</strong> ${session.processing_time?.toFixed(1) || 'Unknown'}s</p>
+          
+          <h3>🗣️ Spoken Content</h3>
+          <p style="font-style: italic; background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+            "${session.speech_text || 'No speech text available'}"
+          </p>
+          
+          <h3>😊 Emotion Analysis</h3>
+          <div style="display: grid; gap: 1rem; margin: 1rem 0;">
+            <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+              <strong>Fused Emotion:</strong> ${session.fused_emotion?.emotion || 'Unknown'} (${((session.fused_emotion?.confidence || 0) * 100).toFixed(1)}% confidence)
+            </div>
+            <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+              <strong>Text Emotion:</strong> ${session.text_emotion?.emotion || 'Unknown'} (${((session.text_emotion?.confidence || 0) * 100).toFixed(1)}% confidence)
+            </div>
+            <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+              <strong>Speech Emotion:</strong> ${session.speech_emotion?.emotion || 'Unknown'} (${((session.speech_emotion?.confidence || 0) * 100).toFixed(1)}% confidence)
+            </div>
+            <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+              <strong>Mental State:</strong> ${session.mental_state?.emotion || 'Unknown'} (${((session.mental_state?.confidence || 0) * 100).toFixed(1)}% confidence)
+            </div>
+          </div>
+          
+          ${session.therapeutic_response ? `
+          <h3>💙 Therapeutic Response</h3>
+          <div style="background: #e8f4f8; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #4facfe;">
+            <p><strong>Response:</strong> ${session.therapeutic_response.empathetic_response || 'No response available'}</p>
+            <p><strong>Assessment Level:</strong> ${session.therapeutic_response.severity_assessment?.toUpperCase() || 'Unknown'}</p>
+            ${session.therapeutic_response.emotion_insights?.confidence_summary ? `
+            <p><strong>Insights:</strong> ${session.therapeutic_response.emotion_insights.confidence_summary}</p>
+            ` : ''}
+          </div>
+          ` : ''}
+          
+          <h3>🛡️ Safety Assessment</h3>
+          <div style="background: ${session.safety_status?.safe ? '#d4edda' : '#f8d7da'}; padding: 1rem; border-radius: 8px;">
+            <p><strong>Status:</strong> ${session.safety_status?.safe ? '✅ Safe' : '⚠️ Concern Detected'}</p>
+            <p><strong>Severity Level:</strong> ${session.safety_status?.severity_level?.toUpperCase() || 'Unknown'}</p>
+            <p><strong>Intervention Required:</strong> ${session.safety_status?.requires_intervention ? 'Yes' : 'No'}</p>
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('sessionModal').style.display = 'block';
+    }
+
+    // Close session modal
+    function closeSessionModal() {
+      document.getElementById('sessionModal').style.display = 'none';
+    }
+
+    // Download session as PDF
+    function downloadSessionPDF(sessionId) {
+      const session = sessions.find(s => s.id === sessionId);
+      if (!session) return;
+
+      const doc = new jsPDF();
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const margin = 20;
+      let yPosition = margin;
+
+      // Title
+      doc.setFontSize(20);
+      doc.text('🌙 EmotionSense AI Session Report', margin, yPosition);
+      yPosition += 15;
+
+      // Session info
+      doc.setFontSize(12);
+      doc.text(`Session ID: ${session.id}`, margin, yPosition);
+      yPosition += 8;
+      doc.text(`Date & Time: ${formatDate(session.timestamp)}`, margin, yPosition);
+      yPosition += 8;
+      doc.text(`Processing Time: ${session.processing_time?.toFixed(1) || 'Unknown'}s`, margin, yPosition);
+      yPosition += 15;
+
+      // Spoken content
+      doc.setFontSize(14);
+      doc.text('Spoken Content:', margin, yPosition);
+      yPosition += 8;
+      doc.setFontSize(11);
+      const speechLines = doc.splitTextToSize(`"${session.speech_text || 'No speech text available'}"`, pageWidth - 2 * margin);
+      doc.text(speechLines, margin, yPosition);
+      yPosition += speechLines.length * 5 + 10;
+
+      // Emotion analysis
+      doc.setFontSize(14);
+      doc.text('Emotion Analysis:', margin, yPosition);
+      yPosition += 8;
+      doc.setFontSize(11);
+      doc.text(`Fused Emotion: ${session.fused_emotion?.emotion || 'Unknown'} (${((session.fused_emotion?.confidence || 0) * 100).toFixed(1)}%)`, margin, yPosition);
+      yPosition += 6;
+      doc.text(`Text Emotion: ${session.text_emotion?.emotion || 'Unknown'} (${((session.text_emotion?.confidence || 0) * 100).toFixed(1)}%)`, margin, yPosition);
+      yPosition += 6;
+      doc.text(`Speech Emotion: ${session.speech_emotion?.emotion || 'Unknown'} (${((session.speech_emotion?.confidence || 0) * 100).toFixed(1)}%)`, margin, yPosition);
+      yPosition += 6;
+      doc.text(`Mental State: ${session.mental_state?.emotion || 'Unknown'} (${((session.mental_state?.confidence || 0) * 100).toFixed(1)}%)`, margin, yPosition);
+      yPosition += 15;
+
+      // Therapeutic response
+      if (session.therapeutic_response) {
+        doc.setFontSize(14);
+        doc.text('Therapeutic Response:', margin, yPosition);
+        yPosition += 8;
+        doc.setFontSize(11);
+        const responseLines = doc.splitTextToSize(session.therapeutic_response.empathetic_response || 'No response available', pageWidth - 2 * margin);
+        doc.text(responseLines, margin, yPosition);
+        yPosition += responseLines.length * 5 + 8;
+        doc.text(`Assessment Level: ${session.therapeutic_response.severity_assessment?.toUpperCase() || 'Unknown'}`, margin, yPosition);
+        yPosition += 15;
+      }
+
+      // Safety assessment
+      doc.setFontSize(14);
+      doc.text('Safety Assessment:', margin, yPosition);
+      yPosition += 8;
+      doc.setFontSize(11);
+      doc.text(`Status: ${session.safety_status?.safe ? 'Safe' : 'Concern Detected'}`, margin, yPosition);
+      yPosition += 6;
+      doc.text(`Severity Level: ${session.safety_status?.severity_level?.toUpperCase() || 'Unknown'}`, margin, yPosition);
+      yPosition += 6;
+      doc.text(`Intervention Required: ${session.safety_status?.requires_intervention ? 'Yes' : 'No'}`, margin, yPosition);
+
+      // Footer
+      doc.setFontSize(8);
+      doc.text('Generated by EmotionSense AI - Your Emotional Wellness Companion', margin, doc.internal.pageSize.getHeight() - 10);
+
+      // Save the PDF
+      doc.save(`EmotionSense_Session_${session.id}_${new Date().toISOString().split('T')[0]}.pdf`);
+    }
+
+    // Delete session
+    function deleteSession(sessionId) {
+      if (confirm('Are you sure you want to delete this session? This action cannot be undone.')) {
+        sessions = sessions.filter(s => s.id !== sessionId);
+        saveSessions();
+        displaySessions();
+      }
+    }
+
+    // Export all sessions as JSON
+    function exportAllSessions() {
+      if (sessions.length === 0) {
+        alert('No sessions to export.');
+        return;
+      }
+
+      const dataStr = JSON.stringify(sessions, null, 2);
+      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(dataBlob);
+      
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `EmotionSense_Sessions_${new Date().toISOString().split('T')[0]}.json`;
+      link.click();
+      
+      URL.revokeObjectURL(url);
+    }
+
+    // Clear all sessions
+    function clearAllSessions() {
+      if (confirm('Are you sure you want to clear all sessions? This action cannot be undone.')) {
+        sessions = [];
+        saveSessions();
+        displaySessions();
+      }
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('sessionModal');
+      if (event.target === modal) {
+        closeSessionModal();
+      }
+    }
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', () => {
+      loadSessions();
+    });
+  </script>
+</body>
+</html>
