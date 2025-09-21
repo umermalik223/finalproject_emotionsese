@@ -11,5 +11,5 @@ python main.py ui
 python main.py both
 
 
-note: Models folders are not in  the app due to git 1 GB limitation
+note: Models folders are not included due to git 1 GB limitation
 
