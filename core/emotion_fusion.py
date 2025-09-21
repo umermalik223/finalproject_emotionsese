@@ -11,10 +11,10 @@ class EmotionFusionEngine:
     def __init__(self):
         # Modality weights based on reliability for therapeutic applications
         self.modality_weights = {
-            'face': 0.35,     # Visual cues are strong indicators
-            'speech': 0.30,   # Vocal patterns very reliable
-            'text': 0.25,     # Text content analysis
-            'mental_state': 0.10  # Clinical assessment
+            'face': 0.55,     # Visual cues are strong indicators
+            'speech': 0.38,   # Vocal patterns very reliable
+            'text': 0.04,     # Text content analysis
+            'mental_state': 0.03  # Clinical assessment
         }
         
         # Emotion mapping for consistency across modalities
