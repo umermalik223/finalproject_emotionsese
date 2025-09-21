@@ -1,8 +1,9 @@
 {
-  "openai_api_key": "api key removed due to git does not allow",
+  "openai_api_key": "api key removed due to git restrictions",
   "gpt_model": "gpt-4o-mini",
   "max_workers": 4,
   "log_level": "INFO",
   "safety_enabled": true,
   "crisis_detection_enabled": true
 }
+
