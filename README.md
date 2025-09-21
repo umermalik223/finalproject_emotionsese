@@ -1,6 +1,3 @@
-<!-- ### 🚀 **Ready to Run**
-
-
 # Install dependencies
 pip install -r requirements.txt
 
@@ -13,6 +10,6 @@ python main.py ui
 # Or both
 python main.py both
 
- -->
 
+note: Models folders are not in  the app due to git 1 GB limitation
 
