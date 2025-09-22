@@ -10,9 +10,7 @@ import time
 logger = logging.getLogger(__name__)
 
 class TherapeuticResponseGenerator:
-    """Production-ready GPT-4 therapeutic response generator"""
-    
-    def __init__(self, api_key: str, model: str = "gpt-4"):
+     def __init__(self, api_key: str, model: str = "gpt-4"):
         self.api_key = api_key
         self.model = model
         self.client = openai.AsyncOpenAI(api_key=api_key)
