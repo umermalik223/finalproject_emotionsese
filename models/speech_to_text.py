@@ -12,7 +12,6 @@ class SpeechToTextAnalyzer:
         self.model_path = Path(model_path)
         self.loaded = False
         
-        # Always use local transformers model first (it's faster and already downloaded)
         self.use_whisper_api = False
         self.processor = None
         self.model = None
@@ -113,7 +112,7 @@ class SpeechToTextAnalyzer:
                 return_tensors="pt"
             ).to(self.device)
             
-            # Generate transcription (using working version settings)
+            # Generate transcription 
             with torch.no_grad():
                 predicted_ids = self.model.generate(
                     inputs["input_features"],
