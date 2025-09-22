@@ -14,7 +14,7 @@ class EmotionFusionEngine:
             'face': 0.55,     # Visual cues are strong indicators
             'speech': 0.38,   # Vocal patterns very reliable
             'text': 0.04,     # Text content analysis
-            'mental_state': 0.03  # Clinical assessment
+            'mental_state': 0.03  # Clinical assessment through text
         }
         
         # Emotion mapping for consistency across modalities
