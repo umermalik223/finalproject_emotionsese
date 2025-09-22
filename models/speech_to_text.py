@@ -7,8 +7,7 @@ from typing import Dict, Any, Optional
 logger = logging.getLogger(__name__)
 
 class SpeechToTextAnalyzer:
-    """Simple, fast, working speech-to-text using OpenAI Whisper API or local whisper"""
-    
+   
     def __init__(self, model_path="voicemodels/whisper"):
         self.model_path = Path(model_path)
         self.loaded = False
