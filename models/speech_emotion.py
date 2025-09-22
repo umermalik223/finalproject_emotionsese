@@ -25,8 +25,6 @@ class OptimizedSERAnalyzer:
         """Initialize emotion model - try local first, then remote"""
         try:
             logger.info("Loading speech emotion model...")
-            
-            # First try to use local model if it exists
             if self.model_path and self.model_path.exists():
                 try:
                     logger.info(f"Attempting to load local speech emotion model: {self.model_path}")
@@ -135,9 +133,8 @@ class OptimizedSERAnalyzer:
             
             # Find dominant emotion
             dominant_emotion = max(emotion_scores, key=emotion_scores.get)
-            confidence = emotion_scores[dominant_emotion]  # Keep as 0-1 range for frontend
-            
-            # Only return if confidence is reasonable (0.4 = 40%)
+            confidence = emotion_scores[dominant_emotion] 
+            # Only return if confidence is reasonable 
             if confidence < 0.4:
                 return None
             
