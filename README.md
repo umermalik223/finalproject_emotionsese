@@ -221,8 +221,8 @@ finalproject_emotionsese/
 **1. Clone the repository**
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/emotionsense-ai.git
-cd emotionsense-ai
+git clone https://github.com/umermalik223/finalproject_emotionsese.git
+cd finalproject_emotionsese.git
 ```
 
 **2. Create and activate a virtual environment**
